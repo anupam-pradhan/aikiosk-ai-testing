@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useVendor } from "../vendor/VendorContext";
 import { useOrder } from "../context/OrderContext";
 import { sendSmsMessage } from "../services/smsMessage";
-import { normalizeUkPhone } from "@/services/phoneUk";
+import { normalizeUkPhone } from "../services/phoneUk";
 
 function buildDefaultStoreUrl(apiUrlRaw?: string) {
   const apiUrl = (apiUrlRaw || "").trim();
@@ -17,7 +17,10 @@ function buildDefaultStoreUrl(apiUrlRaw?: string) {
   return withScheme.replaceAll("site", "store");
 }
 
-export default function SendMenuModal(props: { open: boolean; onClose: () => void }) {
+export default function SendMenuModal(props: {
+  open: boolean;
+  onClose: () => void;
+}) {
   const { open, onClose } = props;
 
   const { vendor } = useVendor();
@@ -25,7 +28,10 @@ export default function SendMenuModal(props: { open: boolean; onClose: () => voi
 
   const storeLabel = config?.storeName || vendor?.vendorName || "MegaPOS";
 
-  const defaultUrl = useMemo(() => buildDefaultStoreUrl(vendor?.apiUrl), [vendor?.apiUrl]);
+  const defaultUrl = useMemo(
+    () => buildDefaultStoreUrl(vendor?.apiUrl),
+    [vendor?.apiUrl]
+  );
 
   const [phone, setPhone] = useState("");
   const [url, setUrl] = useState("");
@@ -71,7 +77,10 @@ export default function SendMenuModal(props: { open: boolean; onClose: () => voi
     const phoneE164 = normalizeUkPhone(phone);
 
     if (!phoneE164) {
-      showCenterAlert("error", "Please enter a valid UK phone number (+44... or 07...)");
+      showCenterAlert(
+        "error",
+        "Please enter a valid UK phone number (+44... or 07...)"
+      );
       return;
     }
     if (!url.trim()) {
@@ -108,7 +117,9 @@ export default function SendMenuModal(props: { open: boolean; onClose: () => voi
         <div className="fixed inset-0 z-[260] flex items-center justify-center pointer-events-none">
           <div
             className={`pointer-events-auto max-w-[90vw] rounded-2xl px-6 py-4 border-2 border-black shadow-[0_6px_0_#000] text-white font-extrabold text-center text-lg
-              ${centerAlert.type === "success" ? "bg-green-600" : "bg-red-600"}`}
+              ${
+                centerAlert.type === "success" ? "bg-green-600" : "bg-red-600"
+              }`}
           >
             {centerAlert.message}
           </div>
@@ -158,7 +169,11 @@ export default function SendMenuModal(props: { open: boolean; onClose: () => voi
               onClick={onSend}
               disabled={busy || cooldown}
               className={`h-12 px-5 rounded-2xl font-extrabold border-2 border-black shadow-[0_3px_0_#000] active:translate-y-[2px] active:shadow-[0_1px_0_#000]
-                ${busy || cooldown ? "opacity-60 bg-[#e5e5e5]" : "bg-[#c2410c] text-white"}`}
+                ${
+                  busy || cooldown
+                    ? "opacity-60 bg-[#e5e5e5]"
+                    : "bg-[#c2410c] text-white"
+                }`}
             >
               {busy ? "Please wait..." : "Send Menu"}
             </button>

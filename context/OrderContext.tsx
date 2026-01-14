@@ -36,7 +36,7 @@ import { useVendor } from "../vendor/VendorContext";
 
 // Edit Mode State - Moved inside provider
 // Cart Signal - Moved inside provider
-import { IS_MOBILEKIOSK } from "@/config/mode";
+import { IS_MOBILEKIOSK } from "../config/mode";
 
 type WizardStep = "BROWSE" | "VARIANT" | "MODIFIER";
 export type PaymentMethod = "card" | "cash";

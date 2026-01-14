@@ -9,7 +9,7 @@ import {
 } from "../context/OrderContext";
 import { sendSmsMessage } from "../services/smsMessage";
 import { sendOrder as apiSendOrder } from "../services/api";
-import { normalizeUkPhone } from "@/services/phoneUk";
+import { normalizeUkPhone } from "../services/phoneUk";
 
 type Tab = "terminal" | "paylink";
 
@@ -322,9 +322,7 @@ export default function ManualPaymentModal(props: {
           <div
             className={`pointer-events-auto max-w-[90vw] rounded-2xl px-6 py-4 border-2 border-black shadow-[0_6px_0_#000] text-white font-extrabold text-center text-lg
               ${
-                centerAlert.type === "success"
-                  ? "bg-green-600"
-                  : "bg-red-600"
+                centerAlert.type === "success" ? "bg-green-600" : "bg-red-600"
               }`}
           >
             {centerAlert.message}
@@ -398,18 +396,29 @@ export default function ManualPaymentModal(props: {
 
               {/* Keypad */}
               <div className="grid grid-cols-3 gap-3">
-                {["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "⌫"].map(
-                  (k) => (
-                    <button
-                      key={k}
-                      className={keypadBtn}
-                      onClick={() => keypadPress(k)}
-                      disabled={busy}
-                    >
-                      {k}
-                    </button>
-                  )
-                )}
+                {[
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  ".",
+                  "0",
+                  "⌫",
+                ].map((k) => (
+                  <button
+                    key={k}
+                    className={keypadBtn}
+                    onClick={() => keypadPress(k)}
+                    disabled={busy}
+                  >
+                    {k}
+                  </button>
+                ))}
 
                 <button
                   className={`${keypadBtn} col-span-3 bg-[#fff7ed]`}
@@ -482,4 +491,3 @@ export default function ManualPaymentModal(props: {
     </div>
   );
 }
-

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useOrder } from "../context/OrderContext";
 import { useAnimation } from "../context/AnimationContext";
-import { buildFallbackSvgDataUrl } from "@/utils/fallbackImage";
+import { buildFallbackSvgDataUrl } from "../utils/fallbackImage";
 import { ImageWithLoader } from "./ImageWithLoader";
 
 const ProductGrid: React.FC = () => {
@@ -63,7 +63,11 @@ const ProductGrid: React.FC = () => {
                     ? "border-orange-400/50 z-10 shadow-[0_0_30px_rgba(249,115,22,0.4)] ring-2 ring-orange-300/60"
                     : "border-white/40 hover:border-white/80 shadow-lg"
                 }
-                ${isAnimating ? "animate-ai-trigger ring-4 ring-blue-400/50" : ""}
+                ${
+                  isAnimating
+                    ? "animate-ai-trigger ring-4 ring-blue-400/50"
+                    : ""
+                }
               `}
               // 🔹 GLOSSY "GLASS" STYLES
               style={{
