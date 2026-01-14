@@ -6,7 +6,7 @@ import { useGeminiLive } from "../hooks/useGeminiLive";
 import { useOrder } from "../context/OrderContext";
 import ManualPaymentModal from "./ManualPaymentModal";
 import SendMenuModal from "./SendMenuModal";
-import { APP_MODE } from "@/config/mode";
+import { APP_MODE } from "../config/mode";
 import ItemFlowOverlay from "./ItemFlowOverlay";
 import OrdersModal from "./Orders/OrdersModal";
 
@@ -122,19 +122,19 @@ const KioskLayout: React.FC = () => {
   const resetToWelcome = () => {
     try {
       disconnect();
-    } catch { }
+    } catch {}
     try {
       closeOrderResult();
-    } catch { }
+    } catch {}
     try {
       clearCart();
-    } catch { }
+    } catch {}
     try {
       cancelFlow();
-    } catch { }
+    } catch {}
     try {
       resetCheckout();
-    } catch { }
+    } catch {}
 
     setMobileView("categories");
     setActiveCategoryId(null);
@@ -458,9 +458,10 @@ const KioskLayout: React.FC = () => {
               onClick={handleVoiceToggle}
               className={`
                 h-10 px-4 rounded-xl font-semibold text-sm shadow-md shadow-white/20 active:scale-95 transition-all flex items-center gap-2
-                ${isConnected
-                  ? "bg-white text-[#a93c10] border border-white"
-                  : "bg-[#a93c10]/40 backdrop-blur-sm text-white border border-white/40"
+                ${
+                  isConnected
+                    ? "bg-white text-[#a93c10] border border-white"
+                    : "bg-[#a93c10]/40 backdrop-blur-sm text-white border border-white/40"
                 }
               `}
               aria-label={isConnected ? "Stop speaking" : "Speak"}
@@ -537,7 +538,7 @@ const KioskLayout: React.FC = () => {
             )}
 
             {/* Refresh button */}
-            
+
             <button
               onClick={resetToWelcome}
               className="h-10 w-10 rounded-xl bg-[#a93c10]/40 backdrop-blur-sm border border-white/40 text-white shadow-md shadow-white/20 active:scale-95 transition-all flex items-center justify-center"
@@ -565,9 +566,10 @@ const KioskLayout: React.FC = () => {
             onClick={handleVoiceToggle}
             className={`
               hidden md:flex relative items-center gap-3 px-6 py-2.5 rounded-2xl font-bold text-white transition-all shadow-xl border-2 text-base overflow-hidden
-              ${isConnected
-                ? "bg-red-600 border-red-300 hover:bg-red-500"
-                : "bg-green-600 border-green-400 hover:bg-green-500"
+              ${
+                isConnected
+                  ? "bg-red-600 border-red-300 hover:bg-red-500"
+                  : "bg-green-600 border-green-400 hover:bg-green-500"
               }
             `}
           >
@@ -616,7 +618,7 @@ const KioskLayout: React.FC = () => {
               )}
             </div>
           </button>
-          {(APP_MODE === 'kiosk') && (
+          {APP_MODE === "kiosk" && (
             <div className="hidden md:block">
               <button
                 className="flex-1 px-6 py-2.5 bg-white/30 backdrop-blur-sm text-white rounded-xl font-bold hover:bg-white/40 transition-all duration-300 ease-in-out shadow-lg border border-white/40 active:scale-95 flex items-center justify-center"
@@ -644,18 +646,18 @@ const KioskLayout: React.FC = () => {
       </div>
 
       {/* MOBILE CART OVERLAY */}
-     {mobileView === "cart" && (
-  <div className="mobile-cart-only fixed left-0 right-0 bottom-0 top-[73px] z-40 bg-white overflow-y-auto">
-    <CartSidebar onBack={() => setMobileView("items")} />
-  </div>
-)}
+      {mobileView === "cart" && (
+        <div className="mobile-cart-only fixed left-0 right-0 bottom-0 top-[73px] z-40 bg-white overflow-y-auto">
+          <CartSidebar onBack={() => setMobileView("items")} />
+        </div>
+      )}
 
       {/* MOBILE CART FAB */}
-{mobileView !== "cart" && wizardStep === "BROWSE" && (
-  <button
-    onClick={() => setMobileView("cart")}
-    aria-label="Open cart"
-    className="
+      {mobileView !== "cart" && wizardStep === "BROWSE" && (
+        <button
+          onClick={() => setMobileView("cart")}
+          aria-label="Open cart"
+          className="
       mobile-cart-only  /* This is controlled by our new CSS */
       fixed right-5 bottom-6 z-50
       h-16 w-16 rounded-full
@@ -667,21 +669,29 @@ const KioskLayout: React.FC = () => {
       active:translate-y-1 active:shadow-[0_4px_0_#000]
       group
     "
-  >
-    {/* ... inside content remains the same ... */}
-     <span className="absolute inset-1 rounded-full bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-     <svg viewBox="0 0 48 48" className="relative h-9 w-9 text-black transition-transform duration-300 group-active:scale-110" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 8h4l4 20h20l4-12H14" />
-        <circle cx="18" cy="36" r="2.6" />
-        <circle cx="30" cy="36" r="2.6" />
-     </svg>
-     {cart?.length > 0 && (
-        <span className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-yellow-400 text-black text-xs font-extrabold flex items-center justify-center border-2 border-black shadow-[0_3px_0_#000] transition-transform group-active:scale-90">
-          {cart.length}
-        </span>
-     )}
-  </button>
-)}
+        >
+          {/* ... inside content remains the same ... */}
+          <span className="absolute inset-1 rounded-full bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <svg
+            viewBox="0 0 48 48"
+            className="relative h-9 w-9 text-black transition-transform duration-300 group-active:scale-110"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 8h4l4 20h20l4-12H14" />
+            <circle cx="18" cy="36" r="2.6" />
+            <circle cx="30" cy="36" r="2.6" />
+          </svg>
+          {cart?.length > 0 && (
+            <span className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-yellow-400 text-black text-xs font-extrabold flex items-center justify-center border-2 border-black shadow-[0_3px_0_#000] transition-transform group-active:scale-90">
+              {cart.length}
+            </span>
+          )}
+        </button>
+      )}
 
       <ManualPaymentModal
         open={showManualPayment}
@@ -692,10 +702,7 @@ const KioskLayout: React.FC = () => {
         onClose={() => setShowSendMenu(false)}
       />
 
-      <OrdersModal
-        isOpen={showOrders}
-        onClose={() => setShowOrders(false)}
-      />
+      <OrdersModal isOpen={showOrders} onClose={() => setShowOrders(false)} />
       {SHOW_VOICE_DEBUG && (
         <div className="shrink-0 border-t bg-gray-50 hidden md:block">
           {/* Debug content */}
